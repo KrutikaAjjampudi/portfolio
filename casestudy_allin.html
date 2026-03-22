@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALLIN Sports — Brand Identity Case Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,900;1,700&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0A0A0A;
+    --white: #F7F5F0;
+    --yellow: #E8C84A;
+    --grey: #6B6B6B;
+    --rule: #2A2A2A;
+    --rule-light: #E0DDD6;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    line-height: 1.7;
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  /* Cursor */
+  .cursor {
+    width: 6px; height: 6px;
+    background: var(--yellow);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 28px; height: 28px;
+    border: 1px solid rgba(232,200,74,0.4);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+  }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.9), transparent);
+  }
+  .nav-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0.4;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 0 48px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Tennis court line texture */
+  .court-lines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+  }
+
+  .court-lines::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(rgba(232,200,74,1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,200,74,1) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+
+  .court-lines::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; height: 300px;
+    border: 1px solid rgba(232,200,74,1);
+    border-radius: 50%;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding-top: 140px;
+    opacity: 0;
+    animation: fadeIn 0.6s 0.2s forwards;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  .hero-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--yellow), transparent);
+    opacity: 0.3;
+  }
+
+  .hero-main {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 0.8s 0.4s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(96px, 14vw, 200px);
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .hero-title .allin {
+    color: var(--yellow);
+    display: block;
+  }
+
+  .hero-title .sports {
+    display: block;
+    -webkit-text-stroke: 1px rgba(247,245,240,0.3);
+    color: transparent;
+  }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 48px;
+    opacity: 0;
+    animation: fadeIn 0.8s 0.7s forwards;
+  }
+
+  .hero-desc {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: rgba(247,245,240,0.55);
+    max-width: 500px;
+    line-height: 1.65;
+  }
+
+  .meta-strip {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--rule);
+  }
+
+  .meta-item {
+    padding: 16px 24px;
+    border-right: 1px solid var(--rule);
+  }
+  .meta-item:last-child { border-right: none; }
+
+  .meta-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 4px;
+  }
+
+  .meta-value {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 96px 48px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .section-grid {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 80px;
+    max-width: 1080px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+
+  .section-num {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--rule);
+    line-height: 1;
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .section-content h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 36px;
+  }
+
+  .section-content h2 em {
+    font-style: italic;
+    color: var(--yellow);
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    text-transform: none;
+    font-size: 0.75em;
+    display: block;
+    letter-spacing: 0;
+  }
+
+  .section-content p {
+    font-size: 16px;
+    color: rgba(247,245,240,0.65);
+    line-height: 1.85;
+    max-width: 560px;
+    margin-bottom: 24px;
+    font-family: 'Instrument Serif', serif;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    margin: 44px 0;
+    padding: 32px 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+
+  .pull-quote::before {
+    content: '"';
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 120px;
+    font-weight: 900;
+    color: var(--yellow);
+    opacity: 0.15;
+    position: absolute;
+    top: -20px; left: -8px;
+    line-height: 1;
+  }
+
+  .pull-quote p {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px !important;
+    color: var(--white) !important;
+    line-height: 1.5 !important;
+    max-width: 520px;
+    padding-left: 8px;
+  }
+
+  /* Story block */
+  .story-block {
+    background: var(--white);
+    color: var(--black);
+    padding: 48px;
+    margin: 40px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .story-block::after {
+    content: 'ALLIN';
+    position: absolute;
+    bottom: -24px; right: -8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 120px;
+    color: rgba(10,10,10,0.05);
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+  }
+
+  .story-block p {
+    color: rgba(10,10,10,0.75) !important;
+    font-size: 15px !important;
+    margin-bottom: 16px;
+    max-width: none !important;
+  }
+
+  .story-block p:last-child { margin-bottom: 0; }
+
+  .sb-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 20px;
+    background: var(--black);
+    display: inline-block;
+    padding: 4px 10px;
+  }
+
+  /* Process — horizontal timeline */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 40px;
+  }
+
+  .tl-item {
+    background: var(--black);
+    padding: 32px 28px;
+    position: relative;
+  }
+
+  .tl-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--yellow);
+    opacity: 0.15;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .tl-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .tl-body {
+    font-family: 'Instrument Serif', serif;
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.7;
+  }
+
+  /* The name card */
+  .name-card {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 48px;
+    margin: 40px 0;
+  }
+
+  .nc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    margin-bottom: 24px;
+  }
+
+  .nc-word {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 96px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .nc-meanings {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .nc-meaning {
+    border-top: 2px solid rgba(10,10,10,0.15);
+    padding-top: 16px;
+  }
+
+  .nc-m-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    color: var(--black);
+  }
+
+  .nc-m-body {
+    font-family: 'Instrument Serif', serif;
+    font-size: 14px;
+    color: rgba(10,10,10,0.65);
+    line-height: 1.6;
+  }
+
+  /* Decision — stark contrast */
+  .decision-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 40px;
+  }
+
+  .dp-side {
+    background: var(--black);
+    padding: 36px 32px;
+  }
+
+  .dp-side.chosen { background: #141414; }
+
+  .dp-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .dp-label .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--rule);
+    flex-shrink: 0;
+  }
+
+  .dp-side.chosen .dp-label .dot { background: var(--yellow); }
+  .dp-side.chosen .dp-label { color: var(--yellow); }
+
+  .dp-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .dp-body {
+    font-family: 'Instrument Serif', serif;
+    font-size: 14px;
+    color: var(--grey);
+    line-height: 1.75;
+  }
+
+  /* Output — image placeholders */
+  .img-block {
+    width: 100%;
+    background: #111;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-block.full { aspect-ratio: 16/9; }
+  .img-block.square { aspect-ratio: 1/1; }
+  .img-block.wide { aspect-ratio: 21/9; }
+  .img-block.portrait { aspect-ratio: 3/4; }
+
+  .img-block::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(rgba(232,200,74,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,200,74,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .img-placeholder {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(232,200,74,0.25);
+    z-index: 1;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .img-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    margin: 32px 0;
+  }
+
+  .img-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    margin: 32px 0;
+  }
+
+  /* Deliverables list */
+  .deliverables {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    margin-top: 40px;
+  }
+
+  .del-item {
+    background: var(--black);
+    padding: 24px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .del-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--yellow);
+    opacity: 0.3;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 32px;
+  }
+
+  .del-content {}
+
+  .del-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .del-body {
+    font-family: 'Instrument Serif', serif;
+    font-size: 13px;
+    color: var(--grey);
+    line-height: 1.6;
+  }
+
+  /* Reflection */
+  .reflection-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-top: 40px;
+  }
+
+  .ri-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+
+  .ri-body {
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+    color: rgba(247,245,240,0.65);
+    line-height: 1.8;
+  }
+
+  /* Footer */
+  .case-footer {
+    padding: 64px 48px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-back {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.35;
+    transition: opacity 0.2s;
+  }
+  .footer-back:hover { opacity: 1; }
+
+  .footer-next {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    text-decoration: none;
+  }
+
+  .fn-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--grey);
+  }
+
+  .fn-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    transition: color 0.2s;
+  }
+
+  .footer-next:hover .fn-title { color: var(--yellow); }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+    from { opacity: 0; }
+  }
+
+  /* Horizontal marquee between sections */
+  .marquee-strip {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    overflow: hidden;
+    padding: 14px 0;
+    white-space: nowrap;
+  }
+
+  .marquee-inner {
+    display: inline-flex;
+    gap: 0;
+    animation: marquee 18s linear infinite;
+  }
+
+  .marquee-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--grey);
+    padding: 0 40px;
+  }
+
+  .marquee-item span { color: var(--yellow); margin-right: 40px; }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav>
+  <a href="#" class="nav-name">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="border-top: none; padding-top: 0;">
+  <div class="court-lines"></div>
+
+  <div class="hero-eyebrow">
+    <span class="hero-tag">Brand &amp; Identity — Tennis Academy</span>
+    <div class="hero-line"></div>
+    <span class="hero-tag">2024</span>
+  </div>
+
+  <div>
+    <div class="hero-main">
+      <h1 class="hero-title">
+        <span class="allin">ALLIN</span>
+        <span class="sports">Sports</span>
+      </h1>
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-desc">A brand built from friendship, love for tennis, and a name that said everything before a single line was drawn.</p>
+      <div class="meta-strip">
+        <div class="meta-item">
+          <div class="meta-label">Type</div>
+          <div class="meta-value">Brand Identity</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Client</div>
+          <div class="meta-value">ALLIN Sports</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Role</div>
+          <div class="meta-value">Brand Designer</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Status</div>
+          <div class="meta-value">Live — Logo in use</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span class="marquee-item">Brand Identity <span>·</span></span>
+    <span class="marquee-item">Tennis Academy <span>·</span></span>
+    <span class="marquee-item">No Brief — Only Story <span>·</span></span>
+    <span class="marquee-item">Combination Mark <span>·</span></span>
+    <span class="marquee-item">Editorial Direction <span>·</span></span>
+    <span class="marquee-item">Designed for Where They're Going <span>·</span></span>
+    <span class="marquee-item">Brand Identity <span>·</span></span>
+    <span class="marquee-item">Tennis Academy <span>·</span></span>
+    <span class="marquee-item">No Brief — Only Story <span>·</span></span>
+    <span class="marquee-item">Combination Mark <span>·</span></span>
+    <span class="marquee-item">Editorial Direction <span>·</span></span>
+    <span class="marquee-item">Designed for Where They're Going <span>·</span></span>
+  </div>
+</div>
+
+<!-- 01 THE STORY -->
+<section>
+  <div class="section-grid reveal">
+    <div class="section-label">
+      <span class="section-num">01</span>
+      The Story
+    </div>
+    <div class="section-content">
+      <h2>Before There Was<br>A Brief, There Was<br><em>a story worth telling</em></h2>
+
+      <p>ALLIN Sports didn't come to me with a brief. There were no slides, no objectives document, no competitive analysis. What there was, was a group of friends who met on a tennis court and decided they wanted to build something together — a tennis academy with ambitions that stretched from hosting local tournaments all the way to competing as an academy and eventually moving into merchandise.</p>
+
+      <p>The brief was: make a logo. What I understood, from listening to their conversations and watching how they talked about what they were building, was that the brief wasn't really about a logo at all.</p>
+
+      <div class="story-block">
+        <div class="sb-label">Context</div>
+        <p>A group of friends who met playing tennis. Now building a tennis academy together. The business goal is to create a space for tournaments — a stage for serious competition — while holding onto the warmth of the community that started it.</p>
+        <p>Their audience isn't defined by age. It's defined by love for the sport and the talent to pursue it. That distinction matters — it's what separates ALLIN from a club and makes it a brand.</p>
+      </div>
+
+      <div class="pull-quote">
+        <p>There was no brief. Only a project. And sometimes that's more honest than a brief ever is.</p>
+      </div>
+
+      <p>The absence of a formal brief meant the design process had to start with listening. I gathered everything I needed from conversations — not between me and the client, but among the clients themselves. What they said to each other about their ambitions told me more than any brief would have.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 THE NAME -->
+<section>
+  <div class="section-grid reveal">
+    <div class="section-label">
+      <span class="section-num">02</span>
+      The Name
+    </div>
+    <div class="section-content">
+      <h2>When the Name<br>Does the<br><em>strategic work</em></h2>
+
+      <p>Before any visual exploration, the name needed to be understood — not just read. ALLIN is not a descriptor. It's a declaration. And that distinction changed everything about how the identity was approached.</p>
+
+      <div class="name-card">
+        <div class="nc-label">What ALLIN means in this context</div>
+        <div class="nc-word">ALL<br>IN.</div>
+        <div class="nc-meanings">
+          <div class="nc-meaning">
+            <div class="nc-m-title">No Holding Back</div>
+            <div class="nc-m-body">A statement of intent from founders who left nothing on the table when they decided to build this. The name is a commitment, not a concept.</div>
+          </div>
+          <div class="nc-meaning">
+            <div class="nc-m-title">Total Commitment</div>
+            <div class="nc-m-body">To the sport. To each other. To what they're building. ALLIN is how they play tennis and how they run a business — the same energy, no separation.</div>
+          </div>
+          <div class="nc-meaning">
+            <div class="nc-m-title">The Design Brief</div>
+            <div class="nc-m-body">Once I understood what ALLIN meant, the visual direction wasn't a choice to make — it was already decided. Bold. Graphic. No hedging. No safe middle ground.</div>
+          </div>
+        </div>
+      </div>
+
+      <p>This is the moment the instinct-driven process reveals its logic. I didn't explore multiple directions because the name had already chosen one. The only question was how to execute that direction with enough discipline to make it feel inevitable, not obvious.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 THE PROCESS -->
+<section>
+  <div class="section-grid reveal">
+    <div class="section-label">
+      <span class="section-num">03</span>
+      The Process
+    </div>
+    <div class="section-content">
+      <h2>Instinct Is Not<br><em>the absence of thinking</em></h2>
+
+      <p>The process here was non-linear and instinct-driven — and I'd defend that choice. In a traditional agency context, you'd present three directions and workshop to a decision. That process exists to manage risk and build client confidence. For ALLIN, where there was no formal brief and the founders had trusted me completely, the right process was different.</p>
+
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-num">01</div>
+          <div class="tl-title">Listen &amp; Absorb</div>
+          <div class="tl-body">Before any design work, I spent time understanding the founders — not through a brief, but through observation. What they talked about, how they talked about tennis, what they wanted ALLIN to become.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">02</div>
+          <div class="tl-title">Decode the Name</div>
+          <div class="tl-body">Spent time unpacking what ALLIN meant as a statement of intent before touching any tools. The name was the brief. Everything else followed from understanding it fully.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-num">03</div>
+          <div class="tl-title">Build the System</div>
+          <div class="tl-body">Moved directly to execution with conviction. Combination mark — wordmark and symbol together. Bold, graphic, editorial. Then extended it into a full visual deck without being asked.</div>
+        </div>
+      </div>
+
+      <p style="margin-top: 32px;">The visual deck was self-initiated. It wasn't in the brief — there wasn't a brief. But the logo alone felt like leaving the story half told. The deck exists to show ALLIN what they could become — the aspirational version of the brand they're still growing into.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 THE DECISIONS -->
+<section>
+  <div class="section-grid reveal">
+    <div class="section-label">
+      <span class="section-num">04</span>
+      The Decisions
+    </div>
+    <div class="section-content">
+      <h2>Every Decision<br>Had One<br><em>test to pass</em></h2>
+
+      <p>Every visual decision was run through a single test: does this feel like a brand that means ALLIN, or does it hedge? The combination mark, the colour choices, the typographic weight — all of it passed or failed on that basis.</p>
+
+      <p>The most significant structural decision was the mark itself — how the wordmark and symbol would relate to each other, and what each would carry.</p>
+
+      <div class="decision-pair">
+        <div class="dp-side">
+          <div class="dp-label"><span class="dot"></span>What was rejected</div>
+          <div class="dp-title">Standalone Symbol</div>
+          <div class="dp-body">A separate abstract symbol that could function independently of the wordmark. Rejected because ALLIN is a name with meaning — stripping that meaning from the identity at the mark level would undermine the whole strategic foundation. The name is the power. The mark needed to carry it.</div>
+        </div>
+        <div class="dp-side chosen">
+          <div class="dp-label"><span class="dot"></span>What was chosen</div>
+          <div class="dp-title">Combination Mark</div>
+          <div class="dp-body">A combination mark where wordmark and symbol work together and separately — but where the name is always present, always readable, always doing its strategic job. The symbol amplifies the wordmark; it doesn't replace it. For a brand at this stage, legibility of the name is more valuable than abstract iconography.</div>
+        </div>
+      </div>
+
+      <p style="margin-top: 32px;">The decision to go bold and graphic rather than clean and minimal was equally deliberate. Tennis has a visual culture that defaults to refinement — white, understated, country club. ALLIN is the opposite of that. Their audience is defined by talent and love for the sport, not by the aesthetic codes of the sport's establishment. The visual language had to reflect that gap.</p>
+
+      <p>The editorial direction — typographically driven, high contrast, magazine-like in composition — came from thinking about where the brand was going, not just where it was. A brand with aspirations toward merchandise and tournament competition needs a visual system that can scale into those contexts. Editorial works at scale. Minimal often disappears.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 THE OUTPUT -->
+<section>
+  <div class="section-grid reveal">
+    <div class="section-label">
+      <span class="section-num">05</span>
+      The Output
+    </div>
+    <div class="section-content">
+      <h2>What Was<br><em>built and delivered</em></h2>
+
+      <p>The deliverables went beyond the original ask. The logo was the entry point. The visual system was the real work.</p>
+
+      <div class="deliverables">
+        <div class="del-item">
+          <div class="del-num">01</div>
+          <div class="del-content">
+            <div class="del-title">Combination Mark</div>
+            <div class="del-body">Primary logo — wordmark and symbol together. Built for apparel, digital, signage, and tournament applications. Currently in active use.</div>
+          </div>
+        </div>
+        <div class="del-item">
+          <div class="del-num">02</div>
+          <div class="del-content">
+            <div class="del-title">Colour Palette</div>
+            <div class="del-body">A palette that carries the brand's energy — bold enough to hold its own in a competitive context, distinctive enough to be remembered.</div>
+          </div>
+        </div>
+        <div class="del-item">
+          <div class="del-num">03</div>
+          <div class="del-content">
+            <div class="del-title">Typography System</div>
+            <div class="del-body">Display and body type pairing chosen for both personality and function. Editorial enough for brand communications, legible enough for tournament collateral.</div>
+          </div>
+        </div>
+        <div class="del-item">
+          <div class="del-num">04</div>
+          <div class="del-content">
+            <div class="del-title">Visual Deck</div>
+            <div class="del-body">Self-initiated. A full applications deck showing what ALLIN could look like on apparel, social, tournament materials, and more. Built to show the brand its own potential.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image placeholders -->
+      <div class="img-block wide" style="margin-top: 32px;">
+        <div class="img-placeholder">Primary Combination Mark — Insert Final Logo</div>
+      </div>
+
+      <div class="img-grid-2">
+        <div class="img-block square"><div class="img-placeholder">Colour Palette</div></div>
+        <div class="img-block square"><div class="img-placeholder">Typography System</div></div>
+      </div>
+
+      <div class="img-block full">
+        <div class="img-placeholder">Visual Deck — Hero Spread — Insert Image</div>
+      </div>
+
+      <div class="img-grid-3">
+        <div class="img-block square"><div class="img-placeholder">Apparel Application</div></div>
+        <div class="img-block square"><div class="img-placeholder">Social / Digital</div></div>
+        <div class="img-block square"><div class="img-placeholder">Tournament Context</div></div>
+      </div>
+
+      <div class="img-block full">
+        <div class="img-placeholder">Visual Deck — Full Spread — Insert Image</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 REFLECTION -->
+<section>
+  <div class="section-grid reveal">
+    <div class="section-label">
+      <span class="section-num">06</span>
+      Reflection
+    </div>
+    <div class="section-content">
+      <h2>What This Project<br><em>changed</em></h2>
+
+      <div class="reflection-grid">
+        <div>
+          <div class="ri-label">The instinct-driven process</div>
+          <div class="ri-body">I'd defend the approach taken here. Not having a brief wasn't a gap — it was an invitation to do the strategic work that a brief would normally have done for me. Listening, synthesising, deciding — that's the work. The output being strong on the first pass wasn't luck; it was the result of understanding the problem before picking up a tool.</div>
+        </div>
+        <div>
+          <div class="ri-label">What this project changed about briefs</div>
+          <div class="ri-body">Every brief I've worked with since ALLIN I treat as a starting point, not a constraint. The real brief is always behind the written one — it's in how the client talks about their work, what they're proud of, what they're afraid of. Learning to find that on a project with no formal brief made me better at finding it when there is one.</div>
+        </div>
+        <div>
+          <div class="ri-label">Designing for where they're going</div>
+          <div class="ri-body">The visual deck was built for a version of ALLIN that doesn't fully exist yet. That was intentional. A brand identity should give a young brand something to grow into — not just something that fits right now. The deck shows tournament posters, merchandise, social presence. None of that exists yet. But it will.</div>
+        </div>
+        <div>
+          <div class="ri-label">What I'd do differently</div>
+          <div class="ri-body">I would present the visual deck more formally — as a proposition, with a verbal framing of the brand strategy it was built on. The work was strong but it was handed over informally, which meant its strategic value wasn't fully read. The presentation of work is part of the work.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="case-footer reveal">
+  <a href="#" class="footer-back">← Back to Brand &amp; Identity</a>
+  <a href="#" class="footer-next">
+    <span class="fn-label">Next Case Study</span>
+    <span class="fn-title">Founder OS →</span>
+  </a>
+</div>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.1;
+    ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
